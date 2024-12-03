@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AR.js Image Example</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+        #qrcode {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Подключение библиотек A-Frame и AR.js -->
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/jeromeetienne/ar.js/aframe/build/aframe-ar.min.js"></script>
+
+    <!-- AR-сцена -->
+    <a-scene embedded arjs>
+        <!-- Маркер с кастомным паттерном -->
+        <a-marker type="pattern" url="img/pattern-camera.patt">
+            <!-- Картина, которая появится на маркере -->
+            <a-image 
+                src="img/pattern-camera.png" 
+                position="0 0.5 0" 
+                rotation="0 0 0" 
+                scale="1 1 1">
+            </a-image>
+        </a-marker>
+        
+        <!-- Камера -->
+        <a-entity camera></a-entity>
+    </a-scene>
+
+    <!-- QR-код -->
+    <div id="qrcode"></div>
+
+    <script>
+        // Ваш локальный IP-адрес и порт
+        const localIP = "http://192.168.1.100:8080"; // Замените на ваш локальный IP-адрес
+
+        // Генерация QR-кода
+        new QRCode(document.getElementById("qrcode"), {
+            text: localIP,  // Ссылка на ваш сервер
+            width: 200,
+            height: 200,
+            colorDark: "#000000",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.H
+        });
+
+    </script>
+
+</body>
+</html>
